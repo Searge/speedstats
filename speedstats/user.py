@@ -95,8 +95,8 @@ class User(object):
         number = int(input('Choose machine name: '))
         if number == 4:
             variants[4] = input('Your name: ')
-        else:
-            return variants.get(number)
+
+        return variants.get(number)
 # %%
 
 
