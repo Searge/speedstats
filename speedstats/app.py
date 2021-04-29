@@ -3,6 +3,7 @@
 # %%
 from pprint import pprint
 from typing import Any, Dict, List
+from helpers.user import User
 
 import speedtest
 
@@ -29,6 +30,8 @@ def get_speed() -> Dict:
 
 def main():
     speed_test: Dict[str, Any] = get_speed()
+    machine = User()
+    pprint(machine.get_dict())
     pprint(speed_test)
 
 
