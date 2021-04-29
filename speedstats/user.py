@@ -34,6 +34,7 @@ class User(object):
     def get_data(self, url: str) -> str:
         """Simplify http requests & decoding data.
 
+        TODO: Create Error handlers
         Args:
             url (str): Site address
 
