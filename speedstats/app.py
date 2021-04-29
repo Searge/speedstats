@@ -3,9 +3,9 @@
 # %%
 from pprint import pprint
 from typing import Any, Dict, List
-from helpers.user import User
 
 import speedtest
+from helpers.user import User
 
 speed = speedtest.Speedtest()
 
