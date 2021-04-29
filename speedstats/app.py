@@ -1,18 +1,15 @@
 # #%L
 # Speedtest and stats
 # %%
-
 from pprint import pprint
 from typing import Any, Dict, List
 
 import speedtest
 
-st = speedtest.Speedtest()
-servers: List[Dict] = st.get_closest_servers()
-best_server: Dict[str, Any] = st.get_best_server()
+speed = speedtest.Speedtest()
 
 
-def get_results() -> Dict:
+def get_speed() -> Dict:
     """
     Tying to get results.
 
@@ -21,20 +18,20 @@ def get_results() -> Dict:
     Dict
         [str, Any]
     """
+    servers: List[Dict] = speed.get_closest_servers()
+    speed.get_best_server(servers)
 
-    st.get_best_server()
+    speed.download()
+    speed.upload()
 
-    st.download()
-    st.upload()
-
-    return st.results.dict()
-# %%
+    return speed.results.dict()
 
 
 def main():
-    """[summary]."""
-    pass
+    speed_test: Dict[str, Any] = get_speed()
+    pprint(speed_test)
 
 
 if __name__ == '__main__':
-    pprint(get_results())
+    main()
+    # %%
