@@ -12,16 +12,17 @@ from urllib3 import PoolManager
 
 class User(object):
     """Gethering information about user machine & ISP."""
+    # TODO: Create object if not exists
 
     def __init__(self):
         """Construct user id."""
         self.uid = uuid4()
-        self.machine = platform.node().title()
+        self.hostname = platform.node().title()
 
         loc = self.get_location()
         self.city, self.country = self.get_place(*loc)
 
-        self.name = self.get_name(self.uid, self.machine, self.city)
+        self.name = self.get_name(self.uid, self.hostname, self.city)
 
     def __repr__(self) -> str:
         """Give a name.
@@ -73,7 +74,7 @@ class User(object):
         country_code = addresses['address']['country_code'].upper()
         return (city, country_code)
 
-    def get_name(self, uid: str, machine: str, city: str) -> str:
+    def get_name(self, uid: str, hostname: str, city: str) -> str:
         """Choose some name variants.
 
         Args:
@@ -85,9 +86,9 @@ class User(object):
             str: The choosen one!
         """
         variants = {
-            1: machine,
-            2: '{0}_{1}'.format(machine, city),
-            3: '{0}_{1}'.format(machine, uid),
+            1: hostname,
+            2: '{0}_{1}'.format(hostname, city),
+            3: '{0}_{1}'.format(hostname, uid),
             4: 'Write your own.',
         }
         for num, variant in variants.items():
