@@ -16,10 +16,11 @@ class User(object):
 
     def __init__(self):
         """Construct user id."""
-        self.uid = uuid4()
-        self.hostname = platform.node().title()
+        node: int = uuid4().fields[5]
+        self.uid: str = node.to_bytes(6, byteorder='big').hex()
+        self.hostname: str = platform.node().title()
 
-        loc = self.get_location()
+        loc: tuple = self.get_location()
         self.city, self.country = self.get_place(*loc)
 
         self.name = self.get_name(self.uid, self.hostname, self.city)
