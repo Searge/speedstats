@@ -1,20 +1,5 @@
 from xml.dom import minidom
-from urllib3 import PoolManager
-
-
-def get_data(url: str) -> str:
-    """Simplify http requests & decoding data.
-
-    TODO: Create Error handlers
-    Args:
-        url (str): Site address
-
-    Returns:
-        str: Dictionary in string
-    """
-    http = PoolManager()
-    request = http.request('GET', url)
-    return request.data.decode()
+from request import get_data
 
 
 def parse(url: str):
