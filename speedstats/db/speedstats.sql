@@ -1,44 +1,59 @@
 CREATE TABLE "User" (
-  "UserID" varchar UNIQUE PRIMARY KEY NOT NULL,
-  "Hostname" varchar,
-  "Machine" varchar,
-  "City" varchar,
-  "Country" varchar
+  "UserID" VARCHAR(12) UNIQUE PRIMARY KEY NOT NULL,
+  "Hostname" VARCHAR(253),
+  "Machine" VARCHAR(16),
+  "City" VARCHAR(86),
+  "Country" VARCHAR(2)
 );
 
 CREATE TABLE "ISP" (
   "ID" SERIAL PRIMARY KEY,
-  "Name" varchar,
-  "ISP_Rating" float8,
-  "Latitude" float4,
-  "Longtitude" float4,
-  "City" varchar,
-  "Country" varchar
+  "Name" VARCHAR(52),
+  "ISP_Rating" REAL,
+  "Latitude" REAL,
+  "Longtitude" REAL,
+  "City" VARCHAR,
+  "Country" VARCHAR(2),
+  "IP" VARCHAR(16)
 );
 
 CREATE TABLE "Sponsor" (
-  "Sponsor" varchar(72) PRIMARY KEY,
-  "Latitude" float4,
-  "Longtitude" float4,
-  "City" varchar,
-  "Country" varchar
+  "ID" INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  "Host" VARCHAR,
+  "Sponsor" VARCHAR(72),
+  "Latitude" REAL,
+  "Longtitude" REAL,
+  "City" VARCHAR,
+  "Country" VARCHAR(2)
 );
 
 CREATE TABLE "Client" (
-  "UserID" varchar PRIMARY KEY,
-  "ISP" varchar,
-  "Sponsor" varchar,
-  "Timestamp" timestamp
+  "UserID" VARCHAR PRIMARY KEY,
+  "ISP" VARCHAR,
+  "Sponsor" VARCHAR,
+  "Distanse" REAL,
+  "Timestamp" TIMESTAMP DEFAULT NOT NULL
+);
+
+CREATE TABLE "Countries" (
+  "code" VARCHAR(2) UNIQUE PRIMARY KEY NOT NULL,
+  "name" VARCHAR
 );
 
 CREATE TABLE "Data" (
-  "Timestamp" timestamp PRIMARY KEY,
-  "Ping" float4,
-  "Download" float4,
-  "Upload" float4,
-  "bytes_received" int,
-  "bytes_sent" int
+  "Timestamp" TIMESTAMP DEFAULT PRIMARY KEY,
+  "Ping" REAL,
+  "Download" REAL,
+  "Upload" REAL,
+  "bytes_received" INTEGER,
+  "bytes_sent" INTEGER
 );
+
+ALTER TABLE "User" ADD FOREIGN KEY ("Country") REFERENCES "Countries" ("code");
+
+ALTER TABLE "ISP" ADD FOREIGN KEY ("Country") REFERENCES "Countries" ("code");
+
+ALTER TABLE "Sponsor" ADD FOREIGN KEY ("Country") REFERENCES "Countries" ("code");
 
 ALTER TABLE "Client" ADD FOREIGN KEY ("UserID") REFERENCES "User" ("UserID");
 
