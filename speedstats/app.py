@@ -8,6 +8,7 @@ import speedtest
 from helpers.user import User
 
 speed = speedtest.Speedtest()
+mb: int = 1000_000
 
 
 def get_speed() -> Dict:
@@ -27,7 +28,11 @@ def get_speed() -> Dict:
 
     return speed.results.dict()
 
-b_to_mb = lambda x: round(x / 1000_000, 2)
+
+def b_to_mb(bites: int) -> int:
+    megabites = round(bites / mb, 2)
+    return megabites
+
 
 def main():
     speed_test: Dict[str, Any] = get_speed()
