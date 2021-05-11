@@ -27,12 +27,16 @@ def get_speed() -> Dict:
 
     return speed.results.dict()
 
+b_to_mb = lambda x: round(x / 1000_000, 2)
 
 def main():
     speed_test: Dict[str, Any] = get_speed()
     machine = User()
     pprint(machine.get_dict())
     pprint(speed_test)
+    print('Download: {0}\nUpload: {1}'.format(
+        b_to_mb(speed_test['download']), b_to_mb(speed_test['upload'])
+    ))
 
 
 if __name__ == '__main__':
